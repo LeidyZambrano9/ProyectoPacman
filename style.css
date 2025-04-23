@@ -1,0 +1,69 @@
+/* Estilo general */
+body {
+  background-color: #000;
+  color: #fff;
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 20px;
+}
+
+/* Contenedor del juego */
+#game {
+  display: grid;
+  grid-template-columns: repeat(28, 20px); /* 28 columnas de 20px */
+  grid-template-rows: repeat(9, 20px); /* ajusta según la cantidad de filas en tu mapa */
+  gap: 0;
+  margin: 0 auto;
+}
+
+/* Cada celda del juego */
+.cell {
+  width: 20px;
+  height: 20px;
+  box-sizing: border-box;
+}
+
+/* Paredes */
+.wall {
+  background-color: #1a1aff;
+  border: 1px solid #000066;
+}
+
+/* Punto comestible */
+.pac-dot {
+  background-color: #000;
+  position: relative;
+}
+
+.pac-dot::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 4px;
+  height: 4px;
+  background-color: #fff;
+  border-radius: 50%;
+}
+
+/* Pac-Man */
+.pacman {
+  background-color: yellow;
+  border-radius: 50%;
+}
+
+/* Fantasma */
+.ghost {
+  background-color: red;
+  border-radius: 50%;
+}
+
+/* Power pellet (opcional) */
+.power-pellet {
+  background-color: orange;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  margin: 2px;
+}
