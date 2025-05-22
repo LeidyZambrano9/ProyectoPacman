@@ -1,93 +1,106 @@
-const game = document.getElementById('game');
-const width = 28;
-const cells = [];
-let pacmanIndex = 490; // posición inicial de Pac-Man
+document.addEventListener('DOMContentLoaded', () => {
 
-// Mapa base (fragmento de ejemplo, podés ampliarlo a 28x28)
-const layout = [
-  1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-  1,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-  1,0,1,1,1,1,1,0,1,1,1,0,1,1,0,1,1,1,1,0,1,1,1,1,1,0,0,1,
-  1,0,1,2,2,2,1,0,1,2,1,0,0,0,0,1,2,2,1,0,1,2,2,2,1,0,0,1,
-  1,0,1,2,3,2,1,0,1,2,1,0,1,1,0,1,2,3,1,0,1,2,3,2,1,0,0,1,
-  1,0,1,2,2,2,1,0,1,2,1,0,1,1,0,1,2,2,1,0,1,2,2,2,1,0,0,1,
-  1,0,1,1,1,1,1,0,1,1,1,0,1,1,0,1,1,1,1,0,1,1,1,1,1,0,0,1,
-  1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-  1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
-];
+  const grid = document.querySelector('.grid');
+  const cells =Array.from(grid.querySelectorAll('div'));
+  const width =10;
+  let pacmanIndex = 28;
+  let score = 0;
 
-function createBoard() {
-  for (let i = 0; i < layout.length; i++) {
-    const cell = document.createElement('div');
-    cell.classList.add('cell');
+  const scoreDisplay = document.getElementById('score');
 
-    switch (layout[i]) {
-      case 0:
-        cell.classList.add('pac-dot');
-        break;
-      case 1:
-        cell.classList.add('wall');
-        break;
-      case 3:
-        cell.classList.add('ghost');
-        break;
-      case 4:
-        cell.classList.add('power-pellet');
-        break;
+class Ghost {
+  constructor(name, startIndex, className, speed=500){
+    this.name = name;
+    this.currentIndex = startIndex;
+    this.className = className;
+    this.speed =speed;
+    this.timerId = null;
+    this.directions = [-1, 1, -width, width]
+  }
+  draw() {
+    cells[this.currentIndex].classList.add('ghost', this.className);
+  }
+
+  erase() {
+    cells[this.currentIndex].classList.remove('ghost', this.className);
+  }
+
+  move() {
+    this.timerId = setInterval(() => {
+        const direction = this.directions[Math.floor(Math.random() * this.directions.length)];
+        const nextIndex = this.currentIndex + direction;
+
+        // no moverse si hay pared o fuera de límites
+        if (
+            nextIndex < 0 ||
+            nextIndex >= cells.length ||
+            cells[nextIndex].classList.contains('wall')
+        ) return;
+
+        this.erase();
+        this.currentIndex = nextIndex;
+        this.draw();
+    }, this.speed);
+}
+
+}
+
+
+const blinky = new Ghost('blinky', 41, 'red', 2000);
+const pinky = new Ghost('pinky', 46, 'pink', 600);
+const ghosts = [blinky, pinky];
+
+  ghosts.forEach(ghost => {
+      ghost.draw();
+      ghost.move();
+    // Asegúrate de tener la función `move()` implementada
+  });
+
+// Función para dibujar Pacman
+    function drawPacman() {
+        cells.forEach(cell => cell.classList.remove('pacman'));
+        cells[pacmanIndex].classList.add('pacman');
     }
 
-    game.appendChild(cell);
-    cells.push(cell);
+    
+     // Función para quitar un punto
+    function eatPoint() {
+    if (cells[pacmanIndex].classList.contains('dot')) {
+      cells[pacmanIndex].classList.remove('dot');
+      score += 50
+      scoreDisplay.textContent = score;
+    }
   }
-}
-
-function drawPacman() {
-  cells[pacmanIndex].classList.add('pacman');
-}
-
-function removePacman() {
-  cells[pacmanIndex].classList.remove('pacman');
-}
-
-// Movimiento del Pac-Man con flechas
-function movePacman(e) {
-  removePacman();
-
-  switch (e.key) {
-    case 'ArrowUp':
-      if (pacmanIndex - width >= 0 && !cells[pacmanIndex - width].classList.contains('wall')) {
-        pacmanIndex -= width;
-      }
-      break;
-    case 'ArrowDown':
-      if (pacmanIndex + width < cells.length && !cells[pacmanIndex + width].classList.contains('wall')) {
-        pacmanIndex += width;
-      }
-      break;
-    case 'ArrowLeft':
-      if (pacmanIndex % width !== 0 && !cells[pacmanIndex - 1].classList.contains('wall')) {
-        pacmanIndex -= 1;
-      }
-      break;
-    case 'ArrowRight':
-      if (pacmanIndex % width < width - 1 && !cells[pacmanIndex + 1].classList.contains('wall')) {
-        pacmanIndex += 1;
-      }
-      break;
-  }
-
-  eatDot();
-  drawPacman();
-}
-
-function eatDot() {
-  if (cells[pacmanIndex].classList.contains('pac-dot')) {
-    cells[pacmanIndex].classList.remove('pac-dot');
-    // Podés sumar puntos acá si querés
-  }
-}
-
-// Inicializar
-createBoard();
-drawPacman();
-document.addEventListener('keydown', movePacman);
+ 
+    drawPacman();
+ 
+     // Movimiento del teclado
+    document.addEventListener('keydown', (e) => {
+        cells[pacmanIndex].classList.remove('pacman');
+        switch (e.key) {
+            case 'ArrowLeft':
+                if (pacmanIndex % width !== 0 && !cells[pacmanIndex - 1].classList.contains('wall')) {
+                    pacmanIndex -= 1;
+                }
+                break;
+            case 'ArrowRight':
+                if (pacmanIndex % width !== width - 1 && !cells[pacmanIndex + 1].classList.contains('wall')) {
+                    pacmanIndex += 1;
+                }
+                break;
+            case 'ArrowUp':
+                if (pacmanIndex - width >= 0 && !cells[pacmanIndex - width].classList.contains('wall')) {
+                    pacmanIndex -= width;
+                }
+                break;
+            case 'ArrowDown':
+                if (pacmanIndex + width < cells.length && !cells[pacmanIndex + width].classList.contains('wall')) {
+                    pacmanIndex += width;
+                }
+                break;
+    }
+        eatPoint(); // Verificar si Pacman ha comido un punto
+  
+        drawPacman(); // Redibujar Pacman después de moverlo
+    });
+});
