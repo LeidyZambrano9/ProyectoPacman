@@ -36,6 +36,23 @@ body {
   background: white;
   border-radius: 50%;
 }
+/* Super pastilla */
+.power-pellet {
+  position: relative;
+  background-color: black;
+}
+
+.power-pellet::after {
+  content: "";
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  width: 12px;
+  height: 12px;
+  background-color: #f8f32b; /* Amarillo brillante */
+  border-radius: 50%;
+  box-shadow: 0 0 8px 4px #f8f32b;
+}
 .pacman {
   width: 100%;
   height: 100%;
@@ -46,22 +63,6 @@ body {
   transition: transform 0.2s; 
 }
 
-/* Rote las imágenes de Pac-Man dependiendo de la dirección */
-.pacman-left {
-  transform: rotate(180deg); 
-}
-
-.pacman-right {
-  transform: rotate(0deg); 
-}
-
-.pacman-up {
-  transform: rotate(-90deg);
-}
-
-.pacman-down {
-  transform: rotate(90deg); 
-}
 .ghost {
   background-size: cover;
   background-position: center;
@@ -72,4 +73,8 @@ body {
 }
 .pink {
   background-image: url('imagenes/rosa.png');
+}
+.ghost.scared {
+  background-color: blue !important;
+  background-image: none;
 }
