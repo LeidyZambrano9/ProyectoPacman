@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function eatPoint() {
     if (cells[pacmanIndex].classList.contains('dot')) {
       cells[pacmanIndex].classList.remove('dot');
-      score += 50
+      score += 5
       scoreDisplay.textContent = score;
     }
     if (cells[pacmanIndex].classList.contains('power-pellet')) {
