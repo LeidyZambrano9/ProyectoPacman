@@ -1,38 +1,154 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Pac-Man</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Tablero de Pac-Man</h1>
-  <h2>Puntuación: <span id="score">0</span></h2>
-  <div class="grid">
-    <!--Fila 1-->
-    <div class="wall"></div><div class="wall"></div><div class="wall"></div><div class="wall"></div><div class="wall"></div><div class="wall"></div><div class="wall"></div><div class="wall"></div><div class="wall"></div><div class="wall"></div><div class="wall"></div>
-    <!--Fila 2-->
-    <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="wall"></div><div class="wall"></div><div class="dot"></div>
-    <!--Fila 3-->
-    <div class="wall"></div><div class="dot"></div><div class="wall"></div><div class="wall"></div><div class="wall"></div><div class="wall"></div><div class="dot"></div><div class="wall"></div><div class="wall"></div><div class="dot"></div><div class="wall"></div>
-    <!--Fila 4-->
-    <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="wall"></div><div class="wall"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
-    <!--Fila 5-->
-    <div class="dot"></div><div class="wall"></div><div class="wall"></div><div class="wall"></div><div class="dot"></div><div class="wall"></div><div class="wall"></div><div class="dot"></div><div class="wall"></div><div class="wall"></div><div class="dot"></div>
-    <!--Fila 6-->
-    <div class="wall"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="wall"></div><div class="dot"></div><div class="wall"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
-    <!--Fila 7-->
-    <div class="wall"></div><div class="dot"></div><div class="dot"></div><div class="wall"></div><div class="wall"></div><div class="dot"></div><div class="wall"></div><div class="dot"></div><div class="wall"></div><div class="wall"></div><div class="wall"></div>
-    <!--Fila 8-->
-    <div class="wall"></div><div class="wall"></div><div class="wall"></div><div class="wall"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
-    <!--Fila 9-->
-    <div class="dot"></div><div class="wall"></div><div class="wall"></div><div class="wall"></div><div class="wall"></div><div class="wall"></div><div class="wall"></div><div class="wall"></div><div class="wall"></div><div class="wall"></div><div class="wall"></div>
-    <!--Fila 10-->
-    <div class="wall"></div><div class="wall"></div><div class="wall"></div><div class="wall"></div><div class="wall"></div><div class="wall"></div><div class="wall"></div><div class="wall"></div><div class="wall"></div><div class="wall"></div><div class="wall"></div>
- 
-  </div>
+    <h1>TABLERO DE PACMAN</h1>
+  <h2>Puntaje: <span id="score">0</span></h2>
+    <div class="grid">
+        
+    
+    <!--fila-->
+    <div class="wall"></div>
+    <div class="wall"></div>
+    <div class="wall"></div>
+    <div class="wall"></div>
+    <div class="wall"></div>
+    <div class="wall"></div>
+    <div class="wall"></div>
+    <div class="wall"></div>
+    <div class="wall"></div>
+    <div class="wall"></div>
 
-  <script src="script.js"></script>
+    <!--fila2-->
+
+    <div class="wall"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="wall"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="wall"></div> 
+
+    <!--fila3-->
+
+    <div class="wall"></div>
+    <div class="dot"></div>
+    <div class="wall"></div>
+    <div class="wall"></div>
+    <div class="dot"></div>
+    <div class="wall"></div>
+    <div class="dot"></div>
+    <div class="wall"></div>
+    <div class="dot"></div>
+    <div class="wall"></div>  
+
+    <!--fila 4-->
+
+    <div class="wall"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="wall"></div> 
+
+    <!--fila5-->
+
+    <div class="wall"></div>
+    <div class="dot"></div>
+    <div class="wall"></div>
+    <div class="wall"></div>
+    <div class="wall"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="wall"></div> 
+
+    <!--fila6-->
+
+    <div class="wall"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="wall"></div>
+    <div class="dot"></div>
+    <div class="wall"></div>
+    <div class="wall"></div>
+    <div class="dot"></div>
+    <div class="wall"></div> 
+
+    <!--fila7-->
+
+    <div class="wall"></div>
+    <div class="dot"></div>
+    <div class="wall"></div>
+    <div class="dot"></div>
+    <div class="wall"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="wall"></div> 
+
+    <!--fila8-->
+
+    <div class="wall"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="wall"></div>
+    <div class="dot"></div>
+    <div class="wall"></div>
+    <div class="wall"></div>
+    <div class="dot"></div>
+    <div class="wall"></div> 
+
+    <!--fila9-->
+
+    <div class="wall"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="wall"></div> 
+
+     <!--fila-->
+     <div class="wall"></div>
+     <div class="wall"></div>
+     <div class="wall"></div>
+     <div class="wall"></div>
+     <div class="wall"></div>
+     <div class="wall"></div>
+     <div class="wall"></div>
+     <div class="wall"></div>
+     <div class="wall"></div>
+     <div class="wall"></div>
+
+
+    
+    </div>
+
+    <h3 class="author">Elaborado por Johan Rojas y Leidy Zambrano</h3>
+
+
+    <script src="script.js"> </script>
+        
+    
 </body>
 </html>

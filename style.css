@@ -46,30 +46,29 @@ body {
   transition: transform 0.2s; 
 }
 
-/* Rote las imágenes de Pac-Man dependiendo de la dirección */
-.pacman-left {
-  transform: rotate(180deg); 
-}
 
-.pacman-right {
-  transform: rotate(0deg); 
-}
-
-.pacman-up {
-  transform: rotate(-90deg);
-}
-
-.pacman-down {
-  transform: rotate(90deg); 
-}
 .ghost {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 .red{
-  background-image: url('imagenes/verd.png');
+  background-image: url('imagenes/red.png');
 }
 .pink {
-  background-image: url('imagenes/rosa.png');
+  background-image: url('imagenes/yellow.png');
+}
+
+
+.author {
+  font-family: 'Arial Black', sans-serif;
+  font-size: 19px;
+  color: white;
+  background-color: black;
+  padding: 10px 20px;
+  border: 3px solid #ffff00;
+  border-radius: 10px;
+  display: inline-block;
+  box-shadow: 0 0 15px #ffff00;
+  margin-top: 20px;
 }
