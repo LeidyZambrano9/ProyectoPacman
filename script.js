@@ -18,10 +18,22 @@ document.addEventListener('DOMContentLoaded', () => {
       this.timerId = null;
       this.directions = [-1, 1, -width, width]
       this.startIndex = startIndex;
+      this.scared = false;
     }
     draw() {
-      cells[this.currentIndex].classList.add('ghost', this.className);
+      // Limpiar todas las clases de fantasma primero
+      cells[this.currentIndex].classList.remove('ghost', 'red', 'pink', 'scared');
+
+      cells[this.currentIndex].classList.add('ghost');
+      // Agregar la clase correcta dependiendo del estado
+      if (this.scared) {
+        cells[this.currentIndex].classList.add('scared');
+      } else {
+        cells[this.currentIndex].classList.add(this.className);
+      }
     }
+
+
 
     erase() {
       cells[this.currentIndex].classList.remove('ghost', this.className);
@@ -83,11 +95,18 @@ document.addEventListener('DOMContentLoaded', () => {
       }, this.speed);
     }
 
+    setScaredMode(isScared) {
+      this.scared = isScared;
+      // Redibujar inmediatamente para mostrar el cambio
+      this.draw();
+    }
   }
 
 
-  const blinky = new Ghost('blinky', 41, 'red', 200);
-  const pinky = new Ghost('pinky', 46, 'pink', 600);
+
+
+  const blinky = new Ghost('blinky', 41, 'red', 900);
+  const pinky = new Ghost('pinky', 46, 'pink', 900);
   const ghosts = [blinky, pinky];
 
   ghosts.forEach(ghost => {
@@ -97,21 +116,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Función para dibujar Pacman
   function drawPacman() {
-    cells.forEach(cell => cell.classList.remove('pacman'));
+    const currentPacmanCell = document.querySelector('.pacman');
+    if (currentPacmanCell) currentPacmanCell.classList.remove('pacman');
+
     cells[pacmanIndex].classList.add('pacman');
   }
 
   // Funcion para que los fantasmas tengan miedo
   function activateScaredMode() {
     ghosts.forEach(ghost => {
-      ghost.scared = true;
-      cells[ghost.currentIndex].classList.add('scared');
+      ghost.setScaredMode(true);
     });
 
     setTimeout(() => {
       ghosts.forEach(ghost => {
-        ghost.scared = false;
-        cells[ghost.currentIndex].classList.remove('scared');
+        ghost.setScaredMode(false);
       });
     }, 10000); // 10 segundos de miedo
   }
@@ -159,10 +178,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  drawPacman();
-
   // Movimiento del teclado
-  document.addEventListener('keydown', (e) => {
+  function handleKeyPress(e) {
     cells[pacmanIndex].classList.remove('pacman');
     switch (e.key) {
       case 'ArrowLeft':
@@ -189,5 +206,11 @@ document.addEventListener('DOMContentLoaded', () => {
     eatPoint(); // Verificar si Pacman ha comido un punto
 
     drawPacman(); // Redibujar Pacman después de moverlo
-  });
+  }
+  drawPacman();
+
+  // Movimiento del teclado
+  document.addEventListener('keydown', handleKeyPress);
+
+
 });
