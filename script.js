@@ -19,9 +19,13 @@ document.addEventListener('DOMContentLoaded', () => {
       this.directions = [-1, 1, -width, width]
       this.startIndex = startIndex;
       this.scared = false;
+      this.isEaten = false;
     }
     draw() {
       // Limpiar todas las clases de fantasma primero
+      if (this.isEaten) {
+        return;
+      }
       cells[this.currentIndex].classList.remove('ghost', 'red', 'pink', 'scared');
 
       cells[this.currentIndex].classList.add('ghost');
@@ -36,11 +40,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     erase() {
-      cells[this.currentIndex].classList.remove('ghost', this.className);
+      cells[this.currentIndex].classList.remove('ghost', 'red', 'pink', 'scared');
     }
 
     move() {
       this.timerId = setInterval(() => {
+        if (this.isEaten) return;
+
         let bestDirection = null;
         let bestDistance = this.scared ? -Infinity : Infinity;
 
@@ -79,21 +85,11 @@ document.addEventListener('DOMContentLoaded', () => {
           this.draw();
         }
 
-        // Detectar colisión con Pacman
-        if (this.currentIndex === pacmanIndex) {
-          if (this.scared) {
-            this.erase();
-            this.currentIndex = this.startIndex;
-            score += 200;
-            scoreDisplay.textContent = score;
-            this.draw();
-          } else {
-            loseLife();
-          }
-        }
+        // La colisión se verifica por fuera con checkGhostCollision()
 
       }, this.speed);
     }
+
 
     setScaredMode(isScared) {
       this.scared = isScared;
@@ -105,8 +101,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-  const blinky = new Ghost('blinky', 41, 'red', 900);
-  const pinky = new Ghost('pinky', 46, 'pink', 900);
+  const blinky = new Ghost('blinky', 41, 'red', 700);
+  const pinky = new Ghost('pinky', 46, 'pink', 800);
   const ghosts = [blinky, pinky];
 
   ghosts.forEach(ghost => {
@@ -147,10 +143,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (cells[pacmanIndex].classList.contains('power-pellet')) {
       cells[pacmanIndex].classList.remove('power-pellet');
-      score += 100;
+      score += 20;
       scoreDisplay.textContent = score;
       activateScaredMode();
     }
+  }
+
+  function checkGhostCollision() {
+    ghosts.forEach(ghost => {
+      if (ghost.currentIndex === pacmanIndex) {
+        if (ghost.scared && !ghost.isEaten) {
+          console.log("Fantasma comido");
+          ghost.erase();
+          ghost.currentIndex = ghost.startIndex;
+          ghost.scared = false;
+          ghost.isEaten = true;
+
+          score += 200;
+          scoreDisplay.textContent = score;
+
+          setTimeout(() => {
+            ghost.isEaten = false;
+            ghost.draw();
+          }, 5000);
+        } else if (!ghost.scared && !ghost.isEaten) {
+          console.log("¡Pacman muere!");
+          loseLife();
+        }
+      }
+    });
   }
 
 
@@ -206,6 +227,8 @@ document.addEventListener('DOMContentLoaded', () => {
     eatPoint(); // Verificar si Pacman ha comido un punto
 
     drawPacman(); // Redibujar Pacman después de moverlo
+    checkGhostCollision();
+
   }
   drawPacman();
 
