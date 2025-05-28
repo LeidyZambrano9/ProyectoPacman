@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   const blinky = new Ghost('blinky', 41, 'red', 700);
-  const pinky = new Ghost('pinky', 46, 'pink', 800);
+  const pinky = new Ghost('pinky', 21, 'pink', 800);
   const ghosts = [blinky, pinky];
 
   ghosts.forEach(ghost => {
